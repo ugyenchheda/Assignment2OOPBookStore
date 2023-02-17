@@ -70,9 +70,31 @@ namespace Assignment2OOPBookStore
             new Book("A Higher Loyalty: Truth, Lies, and Leadership", 19.45),
 
         };
+        public List<Book> BuyABook = new List<Book>();
+        static void Main(string[] args)
+        {
+            bool more;
+            Console.WriteLine("Welcome to the Book Store!");
+            BookinStore bookStore = new BookinStore();
+            do
+            {
+                Console.WriteLine("Which book are you looking for?");
+                string keyword = Console.ReadLine();
 
-        public List<Book> shoppingList = new List<Book>();
-        public double totalPrice = 0;
+                var foundBooks = bookStore.FindBook(keyword);
+
+                Console.Write("More books (Y/N)? ");
+                string decision = Console.ReadLine().ToUpper();
+                if (decision.StartsWith("Y"))
+                    more = true;
+                else
+                    Program.CalcTotalPrice(BuyABook);
+
+                    more = false;
+            } while (more);
+
+        }
+        
         public List<Book> FindBook(string keyword)
         {
             var searchResult = books.Where(b => b.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -93,8 +115,7 @@ namespace Assignment2OOPBookStore
                     if (decision.StartsWith("Y"))
                     {
                         Console.WriteLine("Adding the book " + book.Name + " to your shopping list.");
-                        shoppingList.Add(book);
-                        totalPrice += book.Price;
+                        BuyABook.Add(book);
                     }
                     else if (decision.StartsWith("N"))
                     {
