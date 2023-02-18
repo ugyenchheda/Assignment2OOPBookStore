@@ -8,5 +8,6 @@ namespace Assignment2OOPBookStore
 {
     class TotalBookPrice
     {
+        // Something awesome will be added here very soon.
     }
 }
