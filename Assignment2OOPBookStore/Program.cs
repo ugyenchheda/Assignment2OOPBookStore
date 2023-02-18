@@ -67,34 +67,9 @@ namespace Assignment2OOPBookStore
             new Book("Wall Street Coyotes, part 3", 25.60),
             new Book("Fire and Fury", 30.00),
             new Book("The Woman in the Window", 21.20),
-            new Book("A Higher Loyalty: Truth, Lies, and Leadership", 19.45),
-
+            new Book("A Higher Loyalty: Truth, Lies, and Leadership", 19.45)
         };
-        public List<Book> BuyABook = new List<Book>();
-        static void Main(string[] args)
-        {
-            bool more;
-            Console.WriteLine("Welcome to the Book Store!");
-            BookinStore bookStore = new BookinStore();
-            do
-            {
-                Console.WriteLine("Which book are you looking for?");
-                string keyword = Console.ReadLine();
-
-                var foundBooks = bookStore.FindBook(keyword);
-
-                Console.Write("More books (Y/N)? ");
-                string decision = Console.ReadLine().ToUpper();
-                if (decision.StartsWith("Y"))
-                    more = true;
-                else
-                    Program.CalcTotalPrice(BuyABook);
-
-                    more = false;
-            } while (more);
-
-        }
-        
+       
         public List<Book> FindBook(string keyword)
         {
             var searchResult = books.Where(b => b.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -129,7 +104,52 @@ namespace Assignment2OOPBookStore
             }
             return searchResult;
         }
+       
+        public List<Book> BuyABook = new List<Book>();
+        static double CalcTotalPrice(List<Book> books)
+        {
+            double totalPrice = 0;
+            foreach (var book in books)
+            {
+                totalPrice += book.Price;
+            }
+            return totalPrice;
+        }
+        static void Main(string[] args)
+        {
+            bool more;
+            Console.WriteLine("Welcome to the Book Store!");
+            BookinStore bookStore = new BookinStore();
+            do
+            {
+                Console.WriteLine("Which book are you looking for?");
+                string keyword = Console.ReadLine();
+
+                var foundBooks = bookStore.FindBook(keyword);
+
+                Console.Write("More books (Y/N)? ");
+                string decision = Console.ReadLine().ToUpper();
+                if (decision.StartsWith("Y"))
+                    more = true;
+                else
+                    more = false;
+            } while (more);
+
+
+            Console.WriteLine("You have selected following books.");
+            int counter = 1;
+            foreach (var book in bookStore.BuyABook)
+            {
+                Console.WriteLine(counter + ") " + book.Name + ": Euro " + book.Price);
+
+                counter++;
+            }
+            double totalPrice = CalcTotalPrice(bookStore.BuyABook);
+            Console.WriteLine("Total price will be Euro " + totalPrice + ".");
+        }
+
+
     }
 
-   
+
 }
