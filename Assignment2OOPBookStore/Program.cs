@@ -40,7 +40,6 @@ namespace Assignment2OOPBookStore
                     more = false;
             } while (more);
 
-
             Console.WriteLine("You have selected following books.");
             int counter = 1;
             foreach (var book in bookStore.BuyABook)
@@ -52,7 +51,6 @@ namespace Assignment2OOPBookStore
             double totalPrice = CalcTotalPrice(bookStore.BuyABook);
             Console.WriteLine("Total price will be Euros " + totalPrice + ".");
         }
-
 
         List<Book> books = new List<Book>()
         {
